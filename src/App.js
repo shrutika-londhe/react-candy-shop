@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import Candies from './components/Candy/Candies';
+import CandyInput from './components/Candy/CandyInput';
+import Header from './components/Layout/Header';
+import React,{Fragment,useState} from 'react';
 
 function App() {
+  const [candyList,setCandyList] = useState([]);
+
+
+  const onCandyChangeHandler =(name,desc,price) =>{
+    setCandyList((prevCandyList) => {
+      return [...prevCandyList, {name: name, desc: desc, price: price},
+      ];
+    });
+  }
+  console.log("candylist>>",candyList)
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+  <Fragment>
+    <Header/>
+    <CandyInput onCandyInput={onCandyChangeHandler}/>
+    <Candies Candies={candyList}/>
+  </Fragment>
+  )
 }
 
 export default App;
